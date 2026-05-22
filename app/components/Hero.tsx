@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { Phone, Star, ShieldCheck, Clock, ArrowRight } from '@phosphor-icons/react';
 
-const ease = [0.16, 1, 0.3, 1];
+const ease = [0.16, 1, 0.3, 1] as const;
 
 export default function Hero() {
   return (
