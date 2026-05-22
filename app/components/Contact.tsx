@@ -150,6 +150,7 @@ export default function Contact() {
                   value="New Website Lead — SLR Heating & Cooling"
                 />
                 <input type="hidden" name="_template" value="box" />
+                <input type="hidden" name="_next" value="https://slrheatingncooling.com?submitted=true" />
 
                 <div className="grid sm:grid-cols-2 gap-4">
                   <input

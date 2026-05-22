@@ -93,6 +93,7 @@ export default function Hero() {
                 value="New Website Lead — SLR Heating & Cooling"
               />
               <input type="hidden" name="_template" value="box" />
+              <input type="hidden" name="_next" value="https://slrheatingncooling.com?submitted=true" />
 
               <div>
                 <input

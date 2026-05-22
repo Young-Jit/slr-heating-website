@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import Services from './components/Services';
@@ -9,6 +10,7 @@ import CTA from './components/CTA';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import MobileCallButton from './components/MobileCallButton';
+import SubmissionToast from './components/SubmissionToast';
 
 export default function Home() {
   return (
@@ -26,6 +28,9 @@ export default function Home() {
       </main>
       <Footer />
       <MobileCallButton />
+      <Suspense fallback={null}>
+        <SubmissionToast />
+      </Suspense>
     </>
   );
 }
