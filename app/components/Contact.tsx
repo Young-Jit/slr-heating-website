@@ -10,13 +10,17 @@ import {
   ShieldCheck,
   Star,
   CreditCard,
+  CircleNotch,
+  CheckCircle,
 } from '@phosphor-icons/react';
+import { useContactForm } from '../hooks/useContactForm';
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
 export default function Contact() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
+  const { status, errorMessage, handleSubmit } = useContactForm();
 
   return (
     <section id="contact" className="py-20 md:py-28 bg-white" ref={ref}>
@@ -138,83 +142,90 @@ export default function Contact() {
                 We respond within 60 minutes · No obligation · 100% free
               </p>
 
-              <form
-                action="https://formsubmit.co/Ilanohaion85@gmail.com"
-                method="POST"
-                className="space-y-4"
-              >
-                <input type="hidden" name="_captcha" value="false" />
-                <input
-                  type="hidden"
-                  name="_subject"
-                  value="New Website Lead — SLR Heating & Cooling"
-                />
-                <input type="hidden" name="_template" value="box" />
-                <input type="hidden" name="_next" value="https://slrheatingncooling.com?submitted=true" />
-
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Your Name *"
-                    required
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-cream-dark/40 focus:outline-none focus:ring-2 focus:ring-copper/50 focus:border-copper/50 transition-all"
-                  />
-                  <input
-                    type="tel"
-                    name="phone"
-                    placeholder="Phone Number *"
-                    required
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-cream-dark/40 focus:outline-none focus:ring-2 focus:ring-copper/50 focus:border-copper/50 transition-all"
-                  />
+              {status === 'success' ? (
+                <div className="text-center py-8">
+                  <CheckCircle size={48} weight="fill" className="text-green-400 mx-auto mb-3" />
+                  <h3 className="text-white text-lg font-bold mb-1">Request Received!</h3>
+                  <p className="text-cream-dark/60 text-sm">We&apos;ll get back to you within 60 minutes.</p>
                 </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Your Name *"
+                      required
+                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-cream-dark/40 focus:outline-none focus:ring-2 focus:ring-copper/50 focus:border-copper/50 transition-all"
+                    />
+                    <input
+                      type="tel"
+                      name="phone"
+                      placeholder="Phone Number *"
+                      required
+                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-cream-dark/40 focus:outline-none focus:ring-2 focus:ring-copper/50 focus:border-copper/50 transition-all"
+                    />
+                  </div>
 
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email Address"
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-cream-dark/40 focus:outline-none focus:ring-2 focus:ring-copper/50 focus:border-copper/50 transition-all"
-                />
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email Address"
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-cream-dark/40 focus:outline-none focus:ring-2 focus:ring-copper/50 focus:border-copper/50 transition-all"
+                  />
 
-                <select
-                  name="service"
-                  required
-                  defaultValue=""
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-cream-dark/40 focus:outline-none focus:ring-2 focus:ring-copper/50 focus:border-copper/50 transition-all [&:has(option:checked:not([value='']])]:text-white"
-                >
-                  <option value="" disabled>
-                    Service Needed *
-                  </option>
-                  <option value="ac-repair">AC Repair</option>
-                  <option value="furnace-repair">Furnace / Heater Repair</option>
-                  <option value="installation">New HVAC Installation</option>
-                  <option value="maintenance">AC Maintenance / Tune-Up</option>
-                  <option value="duct-cleaning">Duct Cleaning</option>
-                  <option value="fireplace">Fireplace Cleaning</option>
-                  <option value="dryer-vent">Dryer Vent Cleaning</option>
-                  <option value="emergency">Emergency Service</option>
-                  <option value="other">Other / Not Sure</option>
-                </select>
+                  <select
+                    name="service"
+                    required
+                    defaultValue=""
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-cream-dark/40 focus:outline-none focus:ring-2 focus:ring-copper/50 focus:border-copper/50 transition-all [&:has(option:checked:not([value='']])]:text-white"
+                  >
+                    <option value="" disabled>
+                      Service Needed *
+                    </option>
+                    <option value="ac-repair">AC Repair</option>
+                    <option value="furnace-repair">Furnace / Heater Repair</option>
+                    <option value="installation">New HVAC Installation</option>
+                    <option value="maintenance">AC Maintenance / Tune-Up</option>
+                    <option value="duct-cleaning">Duct Cleaning</option>
+                    <option value="fireplace">Fireplace Cleaning</option>
+                    <option value="dryer-vent">Dryer Vent Cleaning</option>
+                    <option value="emergency">Emergency Service</option>
+                    <option value="other">Other / Not Sure</option>
+                  </select>
 
-                <textarea
-                  name="message"
-                  placeholder="Describe the issue (optional)"
-                  rows={4}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-cream-dark/40 focus:outline-none focus:ring-2 focus:ring-copper/50 focus:border-copper/50 transition-all resize-none"
-                />
+                  <textarea
+                    name="message"
+                    placeholder="Describe the issue (optional)"
+                    rows={4}
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-cream-dark/40 focus:outline-none focus:ring-2 focus:ring-copper/50 focus:border-copper/50 transition-all resize-none"
+                  />
 
-                <button
-                  type="submit"
-                  className="w-full py-4 bg-copper hover:bg-copper-light text-white font-bold rounded-full transition-all active:scale-[0.98] text-lg"
-                >
-                  Send My Free Estimate Request
-                </button>
+                  {status === 'error' && (
+                    <p className="text-red-400 text-sm text-center">{errorMessage}</p>
+                  )}
 
-                <p className="text-xs text-cream-dark/40 text-center">
-                  By submitting, you agree to be contacted by SLR Heating &
-                  Cooling. We never share your information.
-                </p>
-              </form>
+                  <button
+                    type="submit"
+                    disabled={status === 'sending'}
+                    className="w-full py-4 bg-copper hover:bg-copper-light text-white font-bold rounded-full transition-all active:scale-[0.98] text-lg disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  >
+                    {status === 'sending' ? (
+                      <>
+                        <CircleNotch size={20} className="animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      'Send My Free Estimate Request'
+                    )}
+                  </button>
+
+                  <p className="text-xs text-cream-dark/40 text-center">
+                    By submitting, you agree to be contacted by SLR Heating &
+                    Cooling. We never share your information.
+                  </p>
+                </form>
+              )}
             </div>
           </motion.div>
         </div>
